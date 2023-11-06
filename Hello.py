@@ -45,7 +45,7 @@ def run():
             point_df = pd.DataFrame(columns = ["x_value", "y_value"])
             st.write(point_df)
 
-    spec_plot = px.line(point_df, x = "x_value", y = "y_value", color="red")
+    spec_plot = px.line(point_df, x = "x_value", y = "y_value")
     st.plotly_chart(spec_plot, use_container_width=True)
 
     st.write("## Here is the linear spec tool maker.")

@@ -62,12 +62,35 @@ def run():
               tick0 = 0,
               dtick = 0.5
           ),
+
           yaxis = dict(
               tickmode = 'linear',
               tick0 = 0,
               dtick = 5
           )
       )
+      spec_plot.update_xaxes(range=[0, 40], minor_ticks = "inside")
+      spec_plot.update_yaxes(range=[0, -25], minor_ticks = "inside")
+
+    elif plot_type == "User Defined":
+        st.textinput("Please input the tilte", key = "user_title")
+        st.textinput("Please input the x axis title", key = "x_title")
+        st.textinput("Please input the y axis title", key = "y_title")
+        spec_plot.update_layout(
+          title = str(st.session_state.user_title),
+          xaxis_title = str(st.session_state.x_title),
+          yaxis_title = str(st.session_state.y_title),
+          xaxis = dict(
+              tickmode = 'linear',
+              tick0 = 0,
+              dtick = 0.5
+          ),
+          yaxis = dict(
+              tickmode = 'linear',
+              tick0 = 0,
+              dtick = 5
+          ))
+        
     else:
       spec_plot.update_layout(
           title = plot_type,

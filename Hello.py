@@ -27,7 +27,7 @@ def run():
     with st.sidebar:
         st.write("## Please input the information")
         st.write("### 1. How many point in the spec line?")
-        st.number_input("Number of point", key = "num_point")
+        st.number_input("Number of point", key = "num_point", min_value = 0, max_value = 20, step = 1)
         st.write("### 2. Please input x and y value for each point")
 
     st.write("Here is the linear spec tool maker.")

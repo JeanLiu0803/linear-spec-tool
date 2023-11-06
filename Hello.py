@@ -54,7 +54,7 @@ def run():
     plot_type = str(st.session_state.plot_select)
     if plot_type != "TDR":
       spec_plot.update_layout(
-          title = plot_type
+          title = plot_type,
           xaxis_title = "Frequency(GHz)",
           yaxis_title = "Magnitude(dB)",
           xaxis = dict(
@@ -70,7 +70,7 @@ def run():
       )
     else:
       spec_plot.update_layout(
-          title = plot_type
+          title = plot_type,
           xaxis_title = "Time(ns)",
           yaxis_title = "Impedance(ohm)",
           xaxis = dict(

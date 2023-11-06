@@ -37,8 +37,7 @@ def run():
 
         point_df = pd.DataFrame(columns = ["x_value", "y_value"])
         if st.button("Add point", key = "add_point_but"):
-            print(st.session_state.x_value)
-            print(st.session_state.y_value)
+            st.write("Add point! x = ", st.session_state.x_value, ", y = ", st.session_state.y_value)
             point_df = point_df.append({"x_value": st.session_state.x_value, "y_value": st.session_state.y_value}, ignore_index = True)
             st.write(point_df)
         if st.button("Delete point", key = "delete_point"):

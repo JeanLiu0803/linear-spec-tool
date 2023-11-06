@@ -32,18 +32,16 @@ def run():
         st.write("### 2. Please input x and y value for each point")
         st.number_input("X value (Frequency)", key = "x_value", step = 0.01)
         st.number_input("Y value (Mag.)", key = "y_value", step = 0.01)
-        st.button("Add point", key = "add_point")
-        st.button("Delete point", key = "delete_point")
         st.button("Reset", key = "reset")
 
         point_df = pd.DataFrame(columns = ["x_value", "y_value"])
-        if st.button("Add point"):
+        if st.button("Add point", key = "add_point"):
             point_df = point_df.append({"x_value": st.session_state.x_value, "y_value": st.session_state.y_value}, ignore_index = True)
             st.write(point_df)
-        if st.button("Delete point"):
+        if st.button("Delete point", key = "delete_point"):
             point_df = point_df.drop(point_df.index[-1])
             st.write(point_df)
-        if st.button("Reset"):
+        if st.button("Reset", key="reset"):
             point_df = pd.DataFrame(columns = ["x_value", "y_value"])
             st.write(point_df)
 

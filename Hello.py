@@ -36,6 +36,7 @@ def run():
         st.number_input("Y value (Mag.)", key = "y_value", step = 0.01)
 
         point_df = pd.DataFrame(columns = ["x_value", "y_value"])
+        st.write(point_df)
         if st.button("Add point", key = "add_point_but"):
             st.write("Add point! x = ", st.session_state.x_value, ", y = ", st.session_state.y_value)
             point_df = pd.concat([point_df, pd.DataFrame({"x_value": st.session_state.x_value, "y_value": st.session_state.y_value})], ignore_index = True)

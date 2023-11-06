@@ -14,6 +14,7 @@
 
 import streamlit as st
 from streamlit.logger import get_logger
+import pandas as pd
 
 LOGGER = get_logger(__name__)
 
@@ -29,8 +30,19 @@ def run():
         st.write("### 1. How many point in the spec line?")
         st.number_input("Number of point", key = "num_point", min_value = 0, max_value = 20, step = 1)
         st.write("### 2. Please input x and y value for each point")
+        st.number_input("X value (Frequency)", key = "x_value", step = 0.01)
+        st.number_input("Y value (Mag.)", key = "y_value", step = 0.01)
+        st.insert_button("Add point", key = "add_point")
+
+        point_df = pd.DataFrame(columns = ["x_value", "y_value"])
+        if st.button("Add point"):
+            point_df = point_df.append({"x_value": st.session_state.x_value, "y_value": st.session_state.y_value}, ignore_index = True)
+            st.write(point_df)
+
 
     st.write("Here is the linear spec tool maker.")
+    
+
 
 
 

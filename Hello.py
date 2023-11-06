@@ -15,6 +15,7 @@
 import streamlit as st
 from streamlit.logger import get_logger
 import pandas as pd
+import numpy as np
 import plotly.express as px
 
 LOGGER = get_logger(__name__)
@@ -45,16 +46,64 @@ def run():
             point_df = pd.DataFrame(columns = ["x_value", "y_value"])
             st.write(point_df)
 
-    spec_plot = px.line(point_df, x = "x_value", y = "y_value")
-    st.plotly_chart(spec_plot, use_container_width=True)
 
     st.write("## Here is the linear spec tool maker.")
-    st.selectbox("What is your plot?", ["SDD21", "SDD11", "SDD22", "Crosstalk", "TDR", "User Defined"], key = "plot_type")
+    st.selectbox("What is your plot?", ["SDD21", "SDD11", "SDD22", "Crosstalk", "TDR", "User Defined"], key = "plot_select")
+    
+    spec_plot = px.line(point_df, x = "x_value", y = "y_value")
+    plot_type = str(st.session_state.plot_select)
+    if plot_type != "TDR":
+      spec_plot.update_layout(
+          title = plot_type
+          xaxis_title = "Frequency(GHz)",
+          yaxis_title = "Magnitude(dB)",
+          xaxis = dict(
+              tickmode = 'linear',
+              tick0 = 0,
+              dtick = 0.5
+          ),
+          yaxis = dict(
+              tickmode = 'linear',
+              tick0 = 0,
+              dtick = 5
+          )
+      )
+    else:
+      spec_plot.update_layout(
+          title = plot_type
+          xaxis_title = "Time(ns)",
+          yaxis_title = "Impedance(ohm)",
+          xaxis = dict(
+              tickmode = 'linear',
+              tick0 = 0,
+              dtick = 0.5
+          ),
+          yaxis = dict(
+              tickmode = 'linear',
+              tick0 = 0,
+              dtick = 5
+          )
+      )
+    st.plotly_chart(spec_plot, use_container_width=True)
 
     export_df = pd.DataFrame(columns = ["Frequency(GHz)"])
     st.download_button("Download csv", export_df.to_csv(), key = "download_but")
     
+def line_formula(x1, y1, x2, y2):
+    x_array = np.array([[x1, 1],
+                        [x2, 1]])
+    y_array = np.array([[y1],
+                        [y2]])
+    
+    x_inv = inv(x_array)
+    ans = np.dot(x_inv, y_array)
+    
+    m = np.round(ans[0][0], 4)
+    b = np.round(ans[1][0], 4)
 
+    print('y = {}x + ({})'.format(m, b))
+
+    return m, b
 
 
 

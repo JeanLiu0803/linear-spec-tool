@@ -37,6 +37,8 @@ def run():
 
         point_df = pd.DataFrame(columns = ["x_value", "y_value"])
         if st.button("Add point", key = "add_point_but"):
+            print(st.session_state.x_value)
+            print(st.session_state.y_value)
             point_df = point_df.append({"x_value": st.session_state.x_value, "y_value": st.session_state.y_value}, ignore_index = True)
             st.write(point_df)
         if st.button("Delete point", key = "delete_point"):
@@ -48,7 +50,7 @@ def run():
 
 
     st.write("## Here is the linear spec tool maker.")
-    st.selectbox("What is your plot?", ["SDD21", "SDD11", "SDD22", "Crosstalk", "TDR", "User Defined"], key = "plot_select")
+    st.selectbox("What is your plot?", ["SDD21", "SDD11", "SDD22", "Crosstalk", "TDR", "User Defined (Not available now.)"], key = "plot_select")
     
     spec_plot = px.line(point_df, x = "x_value", y = "y_value")
     plot_type = str(st.session_state.plot_select)
@@ -107,6 +109,7 @@ def run():
               dtick = 5
           )
       )
+    
     st.plotly_chart(spec_plot, use_container_width=True)
 
     export_df = pd.DataFrame(columns = ["Frequency(GHz)"])

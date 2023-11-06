@@ -60,7 +60,7 @@ def run():
           xaxis = dict(
               tickmode = 'linear',
               tick0 = 0,
-              dtick = 0.5
+              dtick = 5
           ),
 
           yaxis = dict(
@@ -70,7 +70,7 @@ def run():
           )
       )
       spec_plot.update_xaxes(range=[0, 40], minor_ticks = "inside")
-      spec_plot.update_yaxes(range=[0, -25], minor_ticks = "inside")
+      spec_plot.update_yaxes(range=[-25, 0], minor_ticks = "inside")
 
     elif plot_type == "User Defined":
         st.textinput("Please input the tilte", key = "user_title")

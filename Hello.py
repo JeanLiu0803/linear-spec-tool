@@ -28,9 +28,9 @@ def run():
     )
 
     with st.sidebar:
-        st.write("## Please input the information")
-        st.write("### 1. How many point in the spec line?")
-        st.number_input("Number of point", key = "num_point", min_value = 0, max_value = 20, step = 1)
+        # st.write("## Please input the information")
+        # st.write("### 1. How many point in the spec line?")
+        # st.number_input("Number of point", key = "num_point", min_value = 0, max_value = 20, step = 1)
         st.write("### 2. Please input x and y value for each point")
         st.number_input("X value (Frequency)", key = "x_value", step = 0.01)
         st.number_input("Y value (Mag.)", key = "y_value", step = 0.01)
@@ -41,10 +41,12 @@ def run():
             st.write("Add point! x = ", st.session_state.x_value, ", y = ", st.session_state.y_value)
             data = {"x_value": st.session_state.x_value, "y_value": st.session_state.y_value}
             last_index = len(point_df.index)
-            point_df = pd.concat([point_df, pd.DataFrame(data, index=[last_index+1])], ignore_index = True)
+            point_df = pd.concat([point_df, pd.DataFrame(data)], ignore_index = True)
             # st.write(point_df)
         if st.button("Delete point", key = "delete_point"):
-            point_df = point_df.drop(point_df.index[-1], axis=0)
+            last_index = len(point_df.index)
+            point_df = point_df.drop([last_index])
+            # point_df = point_df.drop(, axis=1)
             # st.write(point_df)
         if st.button("Reset", key="reset"):
             point_df = pd.DataFrame(columns = ["x_value", "y_value"])

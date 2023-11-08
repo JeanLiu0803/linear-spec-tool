@@ -54,14 +54,14 @@ def run():
             # st.write(point_df)
         
         st.write("Current point:")
-        st.write(point_df)
+        st.write(st.session_state.point_df)
 
 
 
     st.write("## Here is the linear spec tool maker.")
     st.selectbox("What is your plot?", ["SDD21", "SDD11", "SDD22", "Crosstalk", "TDR", "User Defined (Not available now.)"], key = "plot_select")
     
-    spec_plot = px.line(point_df, x = "x_value", y = "y_value")
+    spec_plot = px.line(st.session_state.point_df, x = "x_value", y = "y_value")
     plot_type = str(st.session_state.plot_select)
     if plot_type != "TDR":
       spec_plot.update_layout(

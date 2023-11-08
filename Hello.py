@@ -39,7 +39,8 @@ def run():
         st.write(point_df)
         if st.button("Add point", key = "add_point_but"):
             st.write("Add point! x = ", st.session_state.x_value, ", y = ", st.session_state.y_value)
-            point_df = pd.concat([point_df, pd.DataFrame({"x_value": st.session_state.x_value, "y_value": st.session_state.y_value})], ignore_index = True)
+            data = {"x_value": st.session_state.x_value, "y_value": st.session_state.y_value}
+            point_df = pd.concat([point_df, pd.DataFrame(data, index=[0])], ignore_index = True)
             st.write(point_df)
         if st.button("Delete point", key = "delete_point"):
             point_df = point_df.drop(point_df.index[-1])

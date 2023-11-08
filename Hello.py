@@ -41,10 +41,10 @@ def run():
             st.write("Add point! x = ", st.session_state.x_value, ", y = ", st.session_state.y_value)
             data = {"x_value": st.session_state.x_value, "y_value": st.session_state.y_value}
             last_index = len(point_df.index)
-            point_df = pd.concat([point_df, pd.DataFrame(data, index=[last_index])], ignore_index = True)
+            point_df = pd.concat([point_df, pd.DataFrame(data, index=[last_index+1])], ignore_index = True)
             # st.write(point_df)
         if st.button("Delete point", key = "delete_point"):
-            point_df = point_df.drop(point_df.index[-1], axis=1)
+            point_df = point_df.drop(point_df.index[-1], axis=0)
             # st.write(point_df)
         if st.button("Reset", key="reset"):
             point_df = pd.DataFrame(columns = ["x_value", "y_value"])

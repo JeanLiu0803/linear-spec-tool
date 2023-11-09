@@ -40,14 +40,15 @@ def run():
         else:
           idx = st.session_state.point_df.index[-1]
 
-        if len(st.session_state.point_df.index) >= 2:
-          slope, intercept = line_formula(st.session_state.point_df.iloc[-2, 0], st.session_state.point_df.iloc[-2, 1], st.session_state.point_df.iloc[-1, 0], st.session_state.point_df.iloc[-1, 1])
-          formula_text = "y = {}x + ({})".format(slope, intercept)
-        else:
-          formula_text = "N/A"
-        current_input = pd.DataFrame({"x_value": x, "y_value": y, "Formula": formula_text}, index = [idx+1])
 
         if st.button("Add point", key = "add_point_but"):
+            if len(st.session_state.point_df.index) >= 2:
+              slope, intercept = line_formula(st.session_state.point_df.iloc[-2, 0], st.session_state.point_df.iloc[-2, 1], st.session_state.point_df.iloc[-1, 0], st.session_state.point_df.iloc[-1, 1])
+              formula_text = "y = {}x + ({})".format(slope, intercept)
+            else:
+              formula_text = "N/A"
+            current_input = pd.DataFrame({"x_value": x, "y_value": y, "Formula": formula_text}, index = [idx+1])
+            
             st.session_state.point_df = pd.concat([st.session_state.point_df, current_input], axis = 0)
             st.write("Point added! x = {}, y = {}".format(x, y))
         if st.button("Delete point", key = "delete_point"):

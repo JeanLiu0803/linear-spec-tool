@@ -37,7 +37,6 @@ def run():
 
         x = st.number_input("X value (Frequency)", key = "x_value", step = 0.01)
         y = st.number_input("Y value (Mag.)", key = "y_value", step = 0.01)
-        # idx = len(st.session_state.point_df.index)
         if len(st.session_state.point_df.index) == 0:
           idx = 0
         else:
@@ -47,7 +46,7 @@ def run():
 
         if st.button("Add point", key = "add_point_but"):
             st.session_state.point_df = pd.concat([st.session_state.point_df, current_input], axis = 0)
-            st.dataframe(st.session_state.point_df)
+            # st.dataframe(st.session_state.point_df)
             # st.write("Add point! x = ", st.session_state.x_value, ", y = ", st.session_state.y_value)
             # data = {"x_value": st.session_state.x_value, "y_value": st.session_state.y_value}
             # last_index = len(st.session_state.point_df.index)

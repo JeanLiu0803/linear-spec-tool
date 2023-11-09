@@ -38,7 +38,10 @@ def run():
         x = st.number_input("X value (Frequency)", key = "x_value", step = 0.01)
         y = st.number_input("Y value (Mag.)", key = "y_value", step = 0.01)
         # idx = len(st.session_state.point_df.index)
-        idx = st.session_state.point_df.index[-1]
+        if len(st.session_state.point_df.index) == 0:
+          idx = 0
+        else:
+          idx = st.session_state.point_df.index[-1]
 
         current_input = pd.DataFrame({"x_value": x, "y_value": y}, index = [idx+1])
 

@@ -32,17 +32,21 @@ def run():
         # st.write("### 1. How many point in the spec line?")
         # st.number_input("Number of point", key = "num_point", min_value = 0, max_value = 20, step = 1)
         st.write("### 2. Please input x and y value for each point")
-        st.number_input("X value (Frequency)", key = "x_value", step = 0.01)
-        st.number_input("Y value (Mag.)", key = "y_value", step = 0.01)
-
         if "point_df" not in st.session_state:
           st.session_state.point_df = pd.DataFrame(columns = ["x_value", "y_value"])
-        # st.write(point_df)
+
+        x = st.number_input("X value (Frequency)", key = "x_value", step = 0.01)
+        y = st.number_input("Y value (Mag.)", key = "y_value", step = 0.01)
+
+        current_input = pd.DataFrame({"x_value": x, "y_value": y})
+
         if st.button("Add point", key = "add_point_but"):
-            st.write("Add point! x = ", st.session_state.x_value, ", y = ", st.session_state.y_value)
-            data = {"x_value": st.session_state.x_value, "y_value": st.session_state.y_value}
-            last_index = len(st.session_state.point_df.index)
-            st.session_state.point_df = pd.concat([st.session_state.point_df, pd.DataFrame(data, index=[last_index+1])], ignore_index = True)
+            st.session_state.point_df = pd.concat([st.session_state.point_df, current_input], axis = 0)
+            st.dataframe(st.session_state.point_df)
+            # st.write("Add point! x = ", st.session_state.x_value, ", y = ", st.session_state.y_value)
+            # data = {"x_value": st.session_state.x_value, "y_value": st.session_state.y_value}
+            # last_index = len(st.session_state.point_df.index)
+            # st.session_state.point_df = pd.concat([st.session_state.point_df, pd.DataFrame(data, index=[last_index+1])], ignore_index = True)
             # st.write(point_df)
         if st.button("Delete point", key = "delete_point"):
             last_index = len(st.session_state.point_df.index)

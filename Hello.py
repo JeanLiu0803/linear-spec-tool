@@ -43,7 +43,10 @@ def run():
 
         if st.button("Add point", key = "add_point_but"):
             if len(st.session_state.point_df.index) >= 2:
-              slope, intercept = line_formula(st.session_state.point_df.iloc[-2, 0], st.session_state.point_df.iloc[-2, 1], st.session_state.point_df.iloc[-1, 0], st.session_state.point_df.iloc[-1, 1])
+              last_x = st.session_state.point_df.iloc[-1, 0]
+              last_y = st.session_state.point_df.iloc[-1, 1]
+              slope, intercept = line_formula(last_x, last_y, x, y)
+              # slope, intercept = line_formula(st.session_state.point_df.iloc[-2, 0], st.session_state.point_df.iloc[-2, 1], st.session_state.point_df.iloc[-1, 0], st.session_state.point_df.iloc[-1, 1])
               formula_text = "y = {}x + ({})".format(slope, intercept)
             else:
               formula_text = "N/A"

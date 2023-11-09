@@ -37,8 +37,9 @@ def run():
 
         x = st.number_input("X value (Frequency)", key = "x_value", step = 0.01)
         y = st.number_input("Y value (Mag.)", key = "y_value", step = 0.01)
+        idx = len(st.session_state.point_df.index)
 
-        current_input = pd.DataFrame({"x_value": x, "y_value": y})
+        current_input = pd.DataFrame({"x_value": x, "y_value": y}, index = [idx+1])
 
         if st.button("Add point", key = "add_point_but"):
             st.session_state.point_df = pd.concat([st.session_state.point_df, current_input], axis = 0)

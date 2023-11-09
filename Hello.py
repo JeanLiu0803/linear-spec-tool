@@ -31,7 +31,7 @@ def run():
         st.write("### Please input x and y value for each point")
         if "point_df" not in st.session_state:
           # st.session_state.point_df = pd.DataFrame(columns = ["x_value", "y_value"])
-          st.session_state.point_df = pd.DataFrame({"x_value": 0, "y_value": 0, "Formula": "N/A"})
+          st.session_state.point_df = pd.DataFrame({"x_value": 0, "y_value": 0, "Formula": "N/A"}, index=[0])
 
         x = st.number_input("X value (Frequency)", key = "x_value", step = 0.01)
         y = st.number_input("Y value (Mag.)", key = "y_value", step = 0.01)

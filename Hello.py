@@ -61,8 +61,8 @@ def run():
         if st.button("Reset", key="reset"):
             st.session_state.point_df = pd.DataFrame({"x_value": 0, "y_value": 0})
         
-        st.write("Current point:")
-        st.write(st.session_state.point_df)
+        # st.write("Current point:")
+        # st.write(st.session_state.point_df)
 
     # Main page
     st.write("# Welcome to linear spec tool")

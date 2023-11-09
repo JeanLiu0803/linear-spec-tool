@@ -28,12 +28,10 @@ def run():
     )
 
     with st.sidebar:
-        # st.write("## Please input the information")
-        # st.write("### 1. How many point in the spec line?")
-        # st.number_input("Number of point", key = "num_point", min_value = 0, max_value = 20, step = 1)
-        st.write("### 2. Please input x and y value for each point")
+        st.write("### Please input x and y value for each point")
         if "point_df" not in st.session_state:
-          st.session_state.point_df = pd.DataFrame(columns = ["x_value", "y_value"])
+          # st.session_state.point_df = pd.DataFrame(columns = ["x_value", "y_value"])
+          st.session_state.point_df = pd.DataFrame({"x_value": 0, "y_value": 0, "Formula": "N/A"})
 
         x = st.number_input("X value (Frequency)", key = "x_value", step = 0.01)
         y = st.number_input("Y value (Mag.)", key = "y_value", step = 0.01)
@@ -42,31 +40,26 @@ def run():
         else:
           idx = st.session_state.point_df.index[-1]
 
-        current_input = pd.DataFrame({"x_value": x, "y_value": y}, index = [idx+1])
+        slope, intercept = line_formula(st.session_state.point_df.iloc[-2, 0], st.session_state.point_df.iloc[-2, 1], st.session_state.point_df.iloc[-1, 0], st.session_state.point_df.iloc[-1, 1])
+        formula_text = "y = {}x + ({})".format(slope, intercept)
+        current_input = pd.DataFrame({"x_value": x, "y_value": y, "Formula": formula_text}, index = [idx+1])
 
         if st.button("Add point", key = "add_point_but"):
             st.session_state.point_df = pd.concat([st.session_state.point_df, current_input], axis = 0)
-            # st.dataframe(st.session_state.point_df)
-            # st.write("Add point! x = ", st.session_state.x_value, ", y = ", st.session_state.y_value)
-            # data = {"x_value": st.session_state.x_value, "y_value": st.session_state.y_value}
-            # last_index = len(st.session_state.point_df.index)
-            # st.session_state.point_df = pd.concat([st.session_state.point_df, pd.DataFrame(data, index=[last_index+1])], ignore_index = True)
-            # st.write(point_df)
+            st.write("Point added! x = {}, y = {}".format(x, y))
         if st.button("Delete point", key = "delete_point"):
             last_index = len(st.session_state.point_df.index)
             st.session_state.point_df = st.session_state.point_df.drop([last_index])
-            # point_df = point_df.drop(, axis=1)
-            # st.write(point_df)
         if st.button("Reset", key="reset"):
-            st.session_state.point_df = pd.DataFrame(columns = ["x_value", "y_value"])
-            # st.write(point_df)
+            st.session_state.point_df = pd.DataFrame({"x_value": 0, "y_value": 0})
         
         st.write("Current point:")
         st.write(st.session_state.point_df)
 
-
-
-    st.write("## Here is the linear spec tool maker.")
+    # Main page
+    st.write("# Welcome to linear spec tool")
+    st.write(st.session_state.point_df)
+    st.write("## Here is the preview plot.")
     st.selectbox("What is your plot?", ["SDD21", "SDD11", "SDD22", "Crosstalk", "TDR", "User Defined (Not available now.)"], key = "plot_select")
     
     spec_plot = px.line(st.session_state.point_df, x = "x_value", y = "y_value")

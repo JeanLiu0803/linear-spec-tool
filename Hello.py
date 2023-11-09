@@ -17,6 +17,7 @@ from streamlit.logger import get_logger
 import pandas as pd
 import numpy as np
 import plotly.express as px
+from numpy.linalg import inv
 
 LOGGER = get_logger(__name__)
 
@@ -42,7 +43,7 @@ def run():
 
 
         if st.button("Add point", key = "add_point_but"):
-            if len(st.session_state.point_df.index) >= 2:
+            if len(st.session_state.point_df.index) >= 1:
               last_x = float(st.session_state.point_df.iloc[-1, 0])
               last_y = float(st.session_state.point_df.iloc[-1, 1])
               slope, intercept = line_formula(last_x, last_y, float(x), float(y))
